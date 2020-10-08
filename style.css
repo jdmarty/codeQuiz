@@ -2,3 +2,14 @@
     box-sizing: border-box;
 }
 
+#answersBox {
+    display: none;
+}
+
+#buttonBox {
+    display: block;
+}
+
+.answer {
+    cursor: pointer;
+}
