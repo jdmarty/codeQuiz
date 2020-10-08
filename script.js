@@ -1,4 +1,6 @@
-import { htmlQuestions } from './questions.js'
+import { htmlQuestions } from './questions.js';
+import { cssQuestions } from './questions.js'
+import { jsQuestions } from "./questions.js";
 
 $(document).ready(function () {
 //-------------------------------------------------------------------------
@@ -7,15 +9,24 @@ $(document).ready(function () {
     var questions = null;
     var qNumber = 0;
     var score = 0;
+    var highScores = [
+        {name: 'Josh', score: 1000},
+        {name: 'Kyle', score: 50},
+        {name: 'Ray', score: 49}
+    ]
 
     //Base DOM elements
     var $questionBox = $("#questionBox");
     var $answersBox = $("#answersBox");
     var $buttonBox = $("#buttonBox");
+    var $scoresBox = $('#scoresBox');
+    var $scoresList = $('#scoresList')
 
     //function to write the start buttons row
     function writeStartButtons() {
+        $buttonBox.empty();
         $buttonBox.show();
+        $scoresBox.hide();
         var startButtons = [
             {id: 'htmlStart',text: 'HTML'},
             {id: 'cssStart', text: 'CSS'},
@@ -29,6 +40,7 @@ $(document).ready(function () {
             newStartButton.attr('class', 'btn btn-primary btn-lg mx-1');
             newStartButton.attr('type', 'button');
             newStartButton.text(button.text);
+            newStartButton.on('click', loadQuiz);
             $buttonBox.append(newStartButton);
         }
     }
@@ -42,11 +54,35 @@ $(document).ready(function () {
     }
     writeWelcome()
 
+    //function to write the scores list
+    function writeScores() {
+        $answersBox.hide();
+        $scoresBox.show();
+        for (var person of highScores) {
+            $scoresList.append(`<li>${person.name}: ${person.score}</li>`)
+        }
+    }
+
+    //function to write end of quiz message
+    function writeEndMessage() {
+        $questionBox.empty()
+        $questionBox.append('<h1 class="display-4">Pencils Down!</h1>')
+        $questionBox.append('<p class="lead">How did you do?</p>');
+        $buttonBox.empty().show();
+        var replayButton = $("<button>");
+        replayButton.attr("class", "btn btn-primary btn-lg mx-1");
+        replayButton.attr("type", "button");
+        replayButton.text("Play Again?");
+        replayButton.on('click', playAgain);
+        $buttonBox.append(replayButton);
+    }
+
     //function to update the questions box<
     function loadQuestion(questions, qNumber) {
         var currentQuestion = questions[qNumber];
-        //hide the buttons
+        //hide the buttons and scores
         $buttonBox.hide();
+        $scoresBox.hide();
         //display the answers
         $answersBox.show();
         //update the questions box
@@ -67,33 +103,43 @@ $(document).ready(function () {
         }
     }
 
-    //function to load in the appropriate quiz
-    $("#buttonBox").on("click", function (e) {
-        if (!e.target.matches("button")) return;
+    //function to load the appropriate quiz
+    function loadQuiz(e) {
         var quizType = e.target.id;
         switch (quizType) {
-        case "htmlStart":
+            case "htmlStart":
             questions = htmlQuestions;
             break;
-        case "cssStart":
-            questions = htmlQuestions;
+            case "cssStart":
+            questions = cssQuestions;
             break;
-        case "jsStart":
-            questions = htmlQuestions;
+            case "jsStart":
+            questions = jsQuestions;
             break;
-        case "jqStart":
+            case "jqStart":
             questions = htmlQuestions;
             break;
         }
         loadQuestion(questions, qNumber);
-    });
+    }
 
     //function to load the next question
     function nextQuestion(e) {
         var isCorrect = e.target.getAttribute("data-correct")
         if (isCorrect) alert('That\'s right!')
         qNumber++
-        if (qNumber < questions.length) loadQuestion(questions, qNumber);
+        if (qNumber < questions.length) {
+            loadQuestion(questions, qNumber);
+        } else {
+            writeScores();
+            writeEndMessage();
+        }
+    }
+
+    //function to restart the quiz
+    function playAgain() {
+        writeWelcome();
+        writeStartButtons();
     }
 
 //-----------------------------------------------------------------------------------------
