@@ -1,67 +1,112 @@
 //HTML Questions
 export var htmlQuestions = [
   {
-    question: "Which of these elements displays inline by default?",
-    answers: ["p", "div", "span", "h1"],
+    question: "HTML Question 1",
+    answers: ["no", "no", "yes", "no"],
     correct: 2,
   },
   {
-    question:
-      "What is the correct way to add a 2px margin to a div using inline styling?",
-    answers: [
-      "<div style='margin: 2px'</div>",
-      "<div>style=margin: 2px</div",
-      "<div margin='2px'</div>",
-      "<div style='2px'></div>",
-    ],
+    question: "HTML Question 2",
+    answers: ["yes", "no", "no", "no"],
     correct: 0,
   },
   {
-    question: "Which of these is a tag that will make text appear bold?",
-    answers: ["<bold>", "<em>", "<div class='bold'>", "<strong>"],
+    question: "HTML Question 3",
+    answers: ["no", "no", "no", "yes"],
     correct: 3,
+  },
+  {
+    question: "HTML Question 4",
+    answers: ["no", "no", "no", "yes"],
+    correct: 3,
+  },
+  {
+    question: "HTML Question 5",
+    answers: ["no", "no", "yes", "no"],
+    correct: 2,
   },
 ];
 
 export var cssQuestions = [
   {
-    question: "Which of the following is NOT a valid css selector?",
-    answers: ["element", "color", "id", "attribute"],
-    correct: 1,
-  },
-  {
-    question:
-      "the ::before pseudo-element...",
-    answers: [
-      "Inserts content at the top of the document",
-      "Targets all elements before a target element",
-      "Sets all properties of an element to those of the parent element",
-      "Inserts content before the content of an element",
-    ],
+    question: "CSS Question 1",
+    answers: ["no", "no", "no", "yes"],
     correct: 3,
   },
   {
-    question: "Which property can be used to rotate an element?",
-    answers: ["transform", "tilt", "width", "border-radius"],
+    question: "CSS Question 2",
+    answers: ["no", "yes", "no", "no"],
+    correct: 1,
+  },
+  {
+    question: "CSS Question 3",
+    answers: ["no", "no", "no", "yes"],
+    correct: 3,
+  },
+  {
+    question: "CSS Question 4",
+    answers: ["no", "no", "yes", "no"],
+    correct: 2,
+  },
+  {
+    question: "CSS Question 5",
+    answers: ["yes", "no", "no", "no"],
     correct: 0,
   },
 ];
 
 export var jsQuestions = [
   {
-    question: "The expression 1 == '1' will evaluate to...",
-    answers: ["false", "1", "'1'", "true"],
-    correct: 3,
-  },
-  {
-    question: "How many times will 'Yes' be logged to the console when this code is executed? var count = 1; while (count < 10) { console.log(count) }; ",
-    answers: ["10", "Nothing will log", "Infinity", "1",
-    ],
+    question: "JS Question 1",
+    answers: ["no", "no", "yes", "no"],
     correct: 2,
   },
   {
-    question: "Which of these data types is not always iterable?",
-    answers: ["arrays", "strings", "objects", "all are iterable"],
+    question: "JS Question 2",
+    answers: ["no", "no", "yes", "no"],
+    correct: 2,
+  },
+  {
+    question: "JS Question 3",
+    answers: ["yes", "no", "no", "no"],
+    correct: 0,
+  },
+  {
+    question: "JS Question 4",
+    answers: ["no", "no", "no", "yes"],
+    correct: 3,
+  },
+  {
+    question: "JS Question 5",
+    answers: ["no", "no", "yes", "no"],
+    correct: 2,
+  },
+];
+
+export var jqQuestions = [
+  {
+    question: "JQ Question 1",
+    answers: ["no", "yes", "no", "no"],
+    correct: 1,
+  },
+  {
+    question: "JQ Question 2",
+    answers: ["yes", "no", "no", "no"],
+    correct: 0,
+  },
+  {
+    question: "JQ Question 3",
+    answers: ["no", "no", "no", "yes"],
+    correct: 3,
+  },
+  {
+    question: "JQ Question 4",
+    answers: ["no", "yes", "no", "no"],
+    correct: 1,
+  },
+  {
+    question: "JQ Question 5",
+    answers: ["no", "no", "yes", "no"],
     correct: 2,
   },
 ];

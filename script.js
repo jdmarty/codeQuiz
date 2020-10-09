@@ -1,6 +1,4 @@
-import { htmlQuestions } from './questions.js';
-import { cssQuestions } from './questions.js'
-import { jsQuestions } from "./questions.js";
+import { htmlQuestions, cssQuestions, jsQuestions, jqQuestions } from './questions.js';
 
 $(document).ready(function () {
 //-------------------------------------------------------------------------
@@ -9,11 +7,19 @@ $(document).ready(function () {
     var questions = null;
     var qNumber = 0;
     var score = 0;
+    var timer = 60;
     var highScores = [
         {name: 'Josh', score: 1000},
         {name: 'Kyle', score: 50},
         {name: 'Ray', score: 49}
-    ]
+    ];
+    var startButtons = [
+      { id: "htmlStart", text: "HTML" },
+      { id: "cssStart", text: "CSS" },
+      { id: "jsStart", text: "JavaScript" },
+      { id: "jqStart", text: "jQuery" },
+    ];
+    var interval
 
     //Base DOM elements
     var $questionBox = $("#questionBox");
@@ -22,17 +28,14 @@ $(document).ready(function () {
     var $scoresBox = $('#scoresBox');
     var $scoresList = $('#scoresList')
 
+    //start the app
+    initialize()
+
     //function to write the start buttons row
     function writeStartButtons() {
         $buttonBox.empty();
         $buttonBox.show();
         $scoresBox.hide();
-        var startButtons = [
-            {id: 'htmlStart',text: 'HTML'},
-            {id: 'cssStart', text: 'CSS'},
-            {id: 'jsStart', text: 'JavaScript'},
-            {id: 'jqStart', text: 'jQuery'},
-        ];
         $buttonBox.append('<h2>Pick Your Topic</h2>')
         for (var button of startButtons) {
             let newStartButton = $('<button>');
@@ -44,7 +47,6 @@ $(document).ready(function () {
             $buttonBox.append(newStartButton);
         }
     }
-    writeStartButtons();
 
     //function to write the welcome message
     function writeWelcome() {
@@ -52,7 +54,6 @@ $(document).ready(function () {
         $questionBox.append('<h1 class="display-4">Welcome to Code Quiz!</h1>')
         $questionBox.append('<p class="lead">Answer every question before time runs out. The faster you answer, the higher your score!</p>');
     }
-    writeWelcome()
 
     //function to write the scores list
     function writeScores() {
@@ -73,7 +74,7 @@ $(document).ready(function () {
         replayButton.attr("class", "btn btn-primary btn-lg mx-1");
         replayButton.attr("type", "button");
         replayButton.text("Play Again?");
-        replayButton.on('click', playAgain);
+        replayButton.on('click', initialize);
         $buttonBox.append(replayButton);
     }
 
@@ -108,17 +109,17 @@ $(document).ready(function () {
         var quizType = e.target.id;
         switch (quizType) {
             case "htmlStart":
-            questions = htmlQuestions;
-            break;
+                questions = htmlQuestions;
+                break;
             case "cssStart":
-            questions = cssQuestions;
-            break;
+                questions = cssQuestions;
+                break;
             case "jsStart":
-            questions = jsQuestions;
-            break;
+                questions = jsQuestions;
+                break;
             case "jqStart":
-            questions = htmlQuestions;
-            break;
+                questions = jqQuestions;
+                break;
         }
         loadQuestion(questions, qNumber);
     }
@@ -131,16 +132,31 @@ $(document).ready(function () {
         if (qNumber < questions.length) {
             loadQuestion(questions, qNumber);
         } else {
-            writeScores();
-            writeEndMessage();
+            endQuiz();
         }
     }
 
-    //function to restart the quiz
-    function playAgain() {
+    //function to set up the welcome screen and reset state
+    function initialize() {
+        timer = 60;
+        score = 0;
+        qNumber = 0
         writeWelcome();
         writeStartButtons();
     }
+
+    //function to show the end screen
+    function endQuiz() {
+        writeScores();
+        writeEndMessage();
+    }
+
+    //function to start the timer
+    function startTimer() {
+
+    }
+
+    //function to
 
 //-----------------------------------------------------------------------------------------
 });
