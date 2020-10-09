@@ -8,4 +8,10 @@
 
 .answer {
     cursor: pointer;
+    border: 1px solid black;
+}
+
+.answer:hover {
+    background-color: black;
+    color: white;
 }
