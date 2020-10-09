@@ -6,8 +6,7 @@ $(document).ready(function () {
     //global variables
     var questions = null;
     var qNumber = 0;
-    var score = 0;
-    var timer = 60;
+    var timer = 10;
     var highScores = [
         {name: 'Josh', score: 1000},
         {name: 'Kyle', score: 50},
@@ -122,6 +121,7 @@ $(document).ready(function () {
                 break;
         }
         loadQuestion(questions, qNumber);
+        startTimer()
     }
 
     //function to load the next question
@@ -138,8 +138,7 @@ $(document).ready(function () {
 
     //function to set up the welcome screen and reset state
     function initialize() {
-        timer = 60;
-        score = 0;
+        timer = 10;
         qNumber = 0
         writeWelcome();
         writeStartButtons();
@@ -153,10 +152,19 @@ $(document).ready(function () {
 
     //function to start the timer
     function startTimer() {
-
+        interval = setInterval(updateTimer, 100);
     }
 
-    //function to
+    //function to update the timer
+    function updateTimer() {
+        if (timer < 0.1) {
+            clearInterval(interval)
+            endQuiz();
+            return
+        }
+        timer -= 0.1
+        console.log(timer.toFixed(1))
+    }
 
 //-----------------------------------------------------------------------------------------
 });
