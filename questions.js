@@ -5,26 +5,26 @@ export var htmlQuestions = [
     answers: ["no", "no", "yes", "no"],
     correct: 2,
   },
-  {
-    question: "HTML Question 2",
-    answers: ["yes", "no", "no", "no"],
-    correct: 0,
-  },
-  {
-    question: "HTML Question 3",
-    answers: ["no", "no", "no", "yes"],
-    correct: 3,
-  },
-  {
-    question: "HTML Question 4",
-    answers: ["no", "no", "no", "yes"],
-    correct: 3,
-  },
-  {
-    question: "HTML Question 5",
-    answers: ["no", "no", "yes", "no"],
-    correct: 2,
-  },
+  // {
+  //   question: "HTML Question 2",
+  //   answers: ["yes", "no", "no", "no"],
+  //   correct: 0,
+  // },
+  // {
+  //   question: "HTML Question 3",
+  //   answers: ["no", "no", "no", "yes"],
+  //   correct: 3,
+  // },
+  // {
+  //   question: "HTML Question 4",
+  //   answers: ["no", "no", "no", "yes"],
+  //   correct: 3,
+  // },
+  // {
+  //   question: "HTML Question 5",
+  //   answers: ["no", "no", "yes", "no"],
+  //   correct: 2,
+  // },
 ];
 
 export var cssQuestions = [

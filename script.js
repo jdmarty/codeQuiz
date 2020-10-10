@@ -16,6 +16,7 @@ $(document).ready(function () {
     { id: "jsStart", text: "JavaScript" },
     { id: "jqStart", text: "jQuery" },
   ];
+  var currentQuiz = null
   var interval;
 
   //Base DOM elements
@@ -30,6 +31,7 @@ $(document).ready(function () {
   //START QUIZ-----------------------------------------------------------------
   //start the app
   initialize();
+  // localStorage.clear()
 
   //function to set up the welcome screen and reset state
   function initialize() {
@@ -37,7 +39,6 @@ $(document).ready(function () {
     qNumber = 0;
     $timer.text("Timer");
     setStartDOM()
-    writeStartButtons();
   }
 
   //function to set the DOM to the startQuiz state
@@ -45,14 +46,16 @@ $(document).ready(function () {
       $progressBar.empty();
       $questionBox
         .empty()
-        .append('<h1 class="display-4">Welcome to Code Quiz!</h1>')
-        .append('<p class="lead">Answer every question before time runs out. The faster you answer, the higher your score!</p>');
+        .show()
+        .append('<h1 class=><h1 class="display-4">Welcome to Code Quiz!</h1>')
+        .append('<p class="lead">Answer every question before time runs out. The faster you answer, the higher your score!</p>')
       $buttonBox
         .empty()
         .show()
-        .append("<h2>Pick Your Topic</h2>");
+        .append('<h2>Pick Your Topic</h2>');
       $scoresBox
         .hide();
+      writeStartButtons()
   }
 
 
@@ -62,7 +65,6 @@ $(document).ready(function () {
       let newStartButton = $("<button>")
         .attr("id", button.id)
         .attr("class", "btn btn-primary btn-lg mx-1")
-        .attr("type", "button")
         .text(button.text)
         .on("click", loadQuiz);
       $buttonBox.append(newStartButton);
@@ -78,26 +80,27 @@ $(document).ready(function () {
     //use switchboard to load the appropriate questions and highscore list
     switch (quizType) {
       case "htmlStart":
-        questions = htmlQuestions;
-        highScores = JSON.parse(localStorage.getItem('htmlScores'));
-        if (!highScores) highScores = [];
+        selectQuizType("HTML", htmlQuestions, "htmlScores");
         break;
       case "cssStart":
-        questions = cssQuestions;
-        highScores = JSON.parse(localStorage.getItem('cssScores'));
-        if (!highScores) highScores = [];
+        selectQuizType('CSS', cssQuestions, 'cssScores')
         break;
       case "jsStart":
-        questions = jsQuestions;
-        highScores = JSON.parse(localStorage.getItem('jsScores'));
-        if (!highScores) highScores = [];
+        selectQuizType("JavaScript", jsQuestions, "jsScores");
         break;
       case "jqStart":
-        questions = jqQuestions;
-        highScores = JSON.parse(localStorage.getItem('jqScores'));
-        if (!highScores) highScores = [];
+        selectQuizType("jQuery", jqQuestions, "jqScores");
         break;
     }
+
+    //select quiz type
+    function selectQuizType(typeString, questionsArray, scores) {
+      currentQuiz = typeString;
+      questions = questionsArray
+      highScores = JSON.parse(localStorage.getItem(scores))
+      if (!highScores) highScores = [];
+    }
+
     //load the first question and start timer
     loadQuestion(questions, qNumber);
     startTimer();
@@ -118,7 +121,7 @@ $(document).ready(function () {
       var newAnswerCard = $('<div class="card text-center my-2 answer">');
       $answersBox.append(newAnswerCard);
       //write a new card body with an event listener
-      var newAnswerCardBody = $(`<div class="card-body"></div>`);
+      var newAnswerCardBody = $(`<div class="card-body bg-primary w-10"></div>`);
       newAnswerCardBody.on("click", nextQuestion);
       //if the answer at this index is the correct answer, give the card a data attribute
       if (i === currentQuestion.correct) newAnswerCardBody.attr("data-correct", true);
@@ -131,14 +134,11 @@ $(document).ready(function () {
   function nextQuestion(e) {
     var isCorrect = e.target.getAttribute("data-correct");
     //take away 5 seconds if they choose the wrong answer
-    if (!isCorrect) {
-        timer -= 5;
-        updateProgress(false);
-    } else {
-        updateProgress(true);
-    }
+    if (!isCorrect) timer -= 10;
+    updateProgress(isCorrect)
     //move to the next question
     qNumber++;
+    //if you have reached the end of the questions, end the quiz
     (qNumber < questions.length) ? loadQuestion(questions, qNumber) : endQuiz()
   }
 
@@ -151,19 +151,13 @@ $(document).ready(function () {
     clearInterval(interval);
     //write the end message, buttons, and scores
     setEndDOM();
-    writeScores();
   }
 
   //function set the DOM to the end quiz state
   function setEndDOM() {
-      //new question box elements
-      var newNameInput = $('<input type="text" id="nameInput">');
-      var newSubmit = $('<input type="submit" id="nameSubmit">')
-        .on("click", saveNewName);
       //new buttons
       var replayButton = $("<button>")
         .attr("class", "btn btn-primary btn-lg mx-1")
-        .attr("type", "button")
         .text("Try Again?")
         .on("click", initialize);
       //set DOM elements
@@ -171,8 +165,8 @@ $(document).ready(function () {
         .empty()
         .append(`<h1 class="display-4">Final Score: ${score}</h1>`)
         .append('<p class="lead">Enter Your Name</p>')
-        .append(newNameInput)
-        .append(newSubmit);
+        .append($('<input type="text" id="nameInput">'))
+        .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName))
       $buttonBox
         .empty()
         .show()
@@ -180,6 +174,7 @@ $(document).ready(function () {
       $answersBox.hide();
       $scoresBox.show();
       $scoresList.empty();
+      writeScores();
   }
 
   //function to write the scores list
@@ -188,6 +183,7 @@ $(document).ready(function () {
     $scoresList.empty();
     //sort the current scores
     highScores = sortScores(highScores);
+    $scoresBox.append()
     //loop through the sorted array and add them to scores list
     for (var person of highScores) {
         var newScore = $('<li>').text(`${person.name}: ${person.score}`);
@@ -199,7 +195,7 @@ $(document).ready(function () {
   //TIMER FUNCTIONS--------------------------------------------------------------
   //function to start the timer
   function startTimer() {
-    interval = setInterval(updateTimer, 100);
+    // interval = setInterval(updateTimer, 100);
   }
 
   //function to update the timer
@@ -239,8 +235,7 @@ $(document).ready(function () {
         //re-write the scores list
         writeScores()
         //hide the inputs fields
-        $('#nameInput').hide();
-        $('#nameSubmit').hide();
+        $questionBox.slideUp()
         //use switchboard to save new scores to the appropriate variable
         switch (questions) {
             case htmlQuestions:
@@ -265,10 +260,12 @@ $(document).ready(function () {
   //function to update progress bar
     function updateProgress(correct) {
         if (correct) {
-            var newProgress = $('<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>').animate({width: '20%'}, 100);
+            var newProgress = $('<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>')
+              .animate({width: `${100/questions.length}%`}, 100);
             $progressBar.append(newProgress);
         } else {
-            var newProgress = $('<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>').animate({width: '20%'}, 100);
+            var newProgress = $('<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>')
+              .animate({width: `${100/questions.length}%`}, 100);
             $progressBar.append(newProgress);
         }
     }
