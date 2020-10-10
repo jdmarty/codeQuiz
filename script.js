@@ -265,10 +265,10 @@ $(document).ready(function () {
   //function to update progress bar
     function updateProgress(correct) {
         if (correct) {
-            var newProgress = $('<div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>');
+            var newProgress = $('<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>').animate({width: '20%'}, 100);
             $progressBar.append(newProgress);
         } else {
-            var newProgress = $('<div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>');
+            var newProgress = $('<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>').animate({width: '20%'}, 100);
             $progressBar.append(newProgress);
         }
     }
