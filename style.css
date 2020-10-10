@@ -9,9 +9,11 @@
 .answer {
     cursor: pointer;
     border: 1px solid black;
+    font-size: 2em;
 }
 
 .answer:hover {
     background-color: black;
     color: white;
 }
+
