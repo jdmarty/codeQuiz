@@ -72,22 +72,22 @@ $(document).ready(function () {
     switch (quizType) {
       case "htmlStart":
         questions = htmlQuestions;
-        highScores = JSON.parse(localStorage.getItem(htmlScores));
+        highScores = JSON.parse(localStorage.getItem('htmlScores'));
         if (!highScores) highScores = [];
         break;
       case "cssStart":
         questions = cssQuestions;
-        highScores = JSON.parse(localStorage.getItem(cssScores));
+        highScores = JSON.parse(localStorage.getItem('cssScores'));
         if (!highScores) highScores = [];
         break;
       case "jsStart":
         questions = jsQuestions;
-        highScores = JSON.parse(localStorage.getItem(jsScores));
+        highScores = JSON.parse(localStorage.getItem('jsScores'));
         if (!highScores) highScores = [];
         break;
       case "jqStart":
         questions = jqQuestions;
-        highScores = JSON.parse(localStorage.getItem(jqScores));
+        highScores = JSON.parse(localStorage.getItem('jqScores'));
         if (!highScores) highScores = [];
         break;
     }
