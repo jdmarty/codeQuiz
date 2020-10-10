@@ -16,7 +16,6 @@ $(document).ready(function () {
     { id: "jsStart", text: "JavaScript" },
     { id: "jqStart", text: "jQuery" },
   ];
-  var currentQuiz = null
   var interval;
 
   //Base DOM elements
@@ -47,8 +46,8 @@ $(document).ready(function () {
       $questionBox
         .empty()
         .show()
-        .append('<h1 class=><h1 class="display-4">Welcome to Code Quiz!</h1>')
-        .append('<p class="lead">Answer every question before time runs out. The faster you answer, the higher your score!</p>')
+        .append('<h1>Welcome to Code Quiz!</h1>')
+        .append('<p>Answer every question before time runs out. The faster you answer, the higher your score!</p>')
       $buttonBox
         .empty()
         .show()
@@ -95,8 +94,7 @@ $(document).ready(function () {
 
     //select quiz type
     function selectQuizType(typeString, questionsArray, scores) {
-      currentQuiz = typeString;
-      questions = questionsArray
+      questions = questionsArray;
       highScores = JSON.parse(localStorage.getItem(scores))
       if (!highScores) highScores = [];
     }
@@ -114,14 +112,14 @@ $(document).ready(function () {
     $buttonBox.hide();
     $answersBox.show().empty();
     //write the question
-    $questionBox.html(`<h1 class="display-4">${currentQuestion.question}</h1>`);
+    $questionBox.html(`<h1>${currentQuestion.question}</h1>`);
     //write the answers
     for (var i = 0; i < currentQuestion.answers.length; i++) {
       //write a new answers card
       var newAnswerCard = $('<div class="card text-center my-2 answer">');
       $answersBox.append(newAnswerCard);
       //write a new card body with an event listener
-      var newAnswerCardBody = $(`<div class="card-body bg-primary w-10"></div>`);
+      var newAnswerCardBody = $(`<div class="card-body bg-primary"></div>`);
       newAnswerCardBody.on("click", nextQuestion);
       //if the answer at this index is the correct answer, give the card a data attribute
       if (i === currentQuestion.correct) newAnswerCardBody.attr("data-correct", true);
@@ -133,7 +131,7 @@ $(document).ready(function () {
   //function to load the next question
   function nextQuestion(e) {
     var isCorrect = e.target.getAttribute("data-correct");
-    //take away 5 seconds if they choose the wrong answer
+    //take away time if they choose the wrong answer
     if (!isCorrect) timer -= 10;
     updateProgress(isCorrect)
     //move to the next question
@@ -147,6 +145,8 @@ $(document).ready(function () {
   function endQuiz() {
     //calculate final score
     score = Math.max((timer * 10).toFixed(), 0);
+    timer = 0;
+    $timer.text("Timer: " + timer.toFixed(1));
     //stop the timer
     clearInterval(interval);
     //write the end message, buttons, and scores
@@ -156,21 +156,21 @@ $(document).ready(function () {
   //function set the DOM to the end quiz state
   function setEndDOM() {
       //new buttons
-      var replayButton = $("<button>")
+      var homeButton = $("<button>")
         .attr("class", "btn btn-primary btn-lg mx-1")
-        .text("Try Again?")
+        .text("Home")
         .on("click", initialize);
       //set DOM elements
       $questionBox
         .empty()
-        .append(`<h1 class="display-4">Final Score: ${score}</h1>`)
-        .append('<p class="lead">Enter Your Name</p>')
+        .append(`<h1>Final Score: ${score}</h1>`)
+        .append('<p>Enter Your Name</p>')
         .append($('<input type="text" id="nameInput">'))
         .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName))
       $buttonBox
         .empty()
         .show()
-        .append(replayButton);
+        .append(homeButton);
       $answersBox.hide();
       $scoresBox.show();
       $scoresList.empty();
@@ -183,10 +183,14 @@ $(document).ready(function () {
     $scoresList.empty();
     //sort the current scores
     highScores = sortScores(highScores);
-    $scoresBox.append()
     //loop through the sorted array and add them to scores list
-    for (var person of highScores) {
-        var newScore = $('<li>').text(`${person.name}: ${person.score}`);
+    for (var i = 0; i <highScores.length; i++) {
+        var newScore = $('<li>');
+        newScore.append(`<span class="left">${highScores[i].name}</span>`);
+        newScore.append(`<span>${highScores[i].score}</span>`);
+        if (i === 0) newScore.append('<span class="right">🥇</span>');
+        if (i === 1) newScore.append('<span class="right">🥈</span>');
+        if (i === 2) newScore.append('<span class="right">🥉</span>');
         $scoresList.append(newScore);
       }
     }
@@ -195,7 +199,7 @@ $(document).ready(function () {
   //TIMER FUNCTIONS--------------------------------------------------------------
   //function to start the timer
   function startTimer() {
-    // interval = setInterval(updateTimer, 100);
+    interval = setInterval(updateTimer, 100);
   }
 
   //function to update the timer
