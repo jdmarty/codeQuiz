@@ -3,28 +3,42 @@
 //HTML Questions
 export var htmlQuestions = [
   {
-    question: "HTML Question 1",
-    answers: ["no", "no", "yes", "no"],
+    question: "What is the HTML element to use to insert a line break?",
+    answers: ["<span>", "<br>", "<break>", "<lb>"],
+    correct: 1,
+  },
+  {
+    question:
+      "Which of the following elements does NOT display inline by default?",
+    answers: ["<span>", "<img>", "<div>", "<input>"],
     correct: 2,
   },
   {
-    question: "HTML Question 2",
-    answers: ["yes", "no", "no", "no"],
+    question: 'Which of these is correct way to insert an image?',
+    answers: [
+      '<img src="image.jpg" alt="MyImage">',
+      '<image src="image.jpg" alt="MyImage">',
+      '<img alt="MyImage">',
+      '<img alt="MyImage">src=image.jpg</img>',
+    ],
     correct: 0,
   },
   {
-    question: "HTML Question 3",
-    answers: ["no", "no", "no", "yes"],
+    question: 'In HTML, onclick and onchange are...',
+    answers: [
+      'Style attributes', 
+      'Callback functions', 
+      'HTML elements', 
+      'Event attributes'],
     correct: 3,
   },
   {
-    question: "HTML Question 4",
-    answers: ["no", "no", "no", "yes"],
-    correct: 3,
-  },
-  {
-    question: "HTML Question 5",
-    answers: ["no", "no", "yes", "no"],
+    question: 'Which element is used to specify a header for a document or section?',
+    answers: [
+      '<lead>', 
+      '<head>', 
+      '<header>', 
+      '<title>'],
     correct: 2,
   },
 ];
@@ -70,7 +84,7 @@ export var cssQuestions = [
     answers: [
       'border-width: 10px 1px 5px 20px',
       'border-width: 1px 20px 5px 10px',
-      'border-width: 10px 20px 5px 1px',
+      'border-width: 10px 5px 20px 1px',
       'border-width: 20px 5px 10px 1px',
     ],
     correct: 0,

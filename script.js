@@ -58,7 +58,7 @@ $(document).ready(function () {
     for (var button of startButtons) {
       let newStartButton = $("<button>")
         .attr("id", button.id)
-        .attr("class", "mx-1 rounded p-2")
+        .attr("class", "mx-2 rounded p-2")
         .text(button.text)
         .on("click", loadQuiz);
       $buttonBox.append(newStartButton);
@@ -153,8 +153,12 @@ $(document).ready(function () {
     //new buttons
     var homeButton = $("<button>")
       .attr("class", "mx-1 rounded p-2")
-      .text("Home")
+      .text("Go Home")
       .on("click", initialize);
+    var clearButton = $("<button>")
+      .attr("class", "mx-1 rounded p-2")
+      .text("Clear High Scores")
+      .on("click", clearHighScores);
     //set DOM elements
     $questionBox
       .empty()
@@ -162,7 +166,7 @@ $(document).ready(function () {
       .append("<p>Enter Your Name</p>")
       .append($('<input type="text" id="nameInput">'))
       .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName));
-    $buttonBox.empty().show().append(homeButton);
+    $buttonBox.empty().show().append(homeButton, clearButton);
     $answersBox.hide();
     $scoresBox.show();
     writeScores();
@@ -229,7 +233,7 @@ $(document).ready(function () {
     if (currentNameInput) {
       //if there is, push a new score to the array
       highScores.push({ name: currentNameInput, score: score });
-      //if high scores is longer than 10, remove the last socre
+      //if high scores is longer than 10, remove the last score
       if (highScores.length > 10) highScores.pop();
       //re-write the scores list
       writeScores();
@@ -251,6 +255,26 @@ $(document).ready(function () {
           break;
       }
     }
+  }
+
+  //function to clear high scores
+  function clearHighScores() {
+    highScores = [];
+    switch (questions) {
+      case htmlQuestions:
+        localStorage.setItem("htmlScores", JSON.stringify([]));
+        break;
+      case cssQuestions:
+        localStorage.setItem("cssScores", JSON.stringify([]));
+        break;
+      case jsQuestions:
+        localStorage.setItem("jsScores", JSON.stringify([]));
+        break;
+      case jqQuestions:
+        localStorage.setItem("jqScores", JSON.stringify([]));
+        break;
+    }
+    writeScores()
   }
   //--------------------------------------------------------------------------------
 
