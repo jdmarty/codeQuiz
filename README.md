@@ -1,11 +1,42 @@
 # Code Quiz
 
 ## Links
- - Deployed []
+ - Deployed [https://jdmarty.github.io/codeQuiz/](https://jdmarty.github.io/codeQuiz/)
  - Repository [https://github.com/jdmarty/codeQuiz](https://github.com/jdmarty/codeQuiz)
 
 
 
+ ## How to use
+ 1. Select the type of quiz you want to take from the buttons on the home screen. High score boards
+ are specific to each quiz type. A timer (12 seconds per question) will start as soon as you click the start button
+ 2. Select the correct answer from the options presented below.
+ 3. Check the progress bar at the top of the screen to validate your answers. Wrong answers will deduct time from the clock.
+ 4. Once you have completed the quiz, your score will be calculated from the time remaining and you will be asked to add your name to the high scores board.
+ 5. Enter your name in the presented input field and click submit to add your name to the board.
+ 6. Click the Clear High Scores button to reset the high scores board for the current quiz
+ 7. Click the Go Home button to reset to the home page
+
+ ## How to update/add questions
+ Questions for each quiz are stored in their own array in the questions.js file. Add questions to a quiz by creating an object with the following format and adding it to the appropriate array:
+    - question: String containing a the question prompt
+    - answers: An array of strings containing possible answers to the question
+    - correct: The index of the correct answer 
+
+## How to add quizzes
+1. Create and export a new variable bound to an array.
+2. Fill that array with questions using the format described above.
+3. Add your named variable to the import statement at the top of script.js
+4. Add a new start button by adding an object to the startButtons array in script.js using the following format:
+    - id: String containing the name to be used when identifying the quiz later
+    - text: String containing text to display on the button
+5. Add your quiz to the loadQuiz switchboard using the following format:
+    - case: string matching id value of the button created in the previous step
+    - selectQuizType first argument: variable containing appropriate questions array imported from questions.js
+    - selectQuizType second argument: string defining the name that you want to use to call the high scores board for this quiz.
+6. Add your scoreboard to the setScores switchboard using the following format:
+    - case: variable containing appropriate questions array imported from questions.js
+    - localStorage.setItem first argument: string matching the name set in the previous step to define the scoreboard for this quiz
+    - localStorage.setItem second argument: JSON.stringify(highScores)
 --------------------------------
 
 # 04 Web APIs: Code Quiz

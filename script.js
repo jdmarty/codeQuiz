@@ -47,7 +47,9 @@ $(document).ready(function () {
       .empty()
       .show()
       .append("<h1>Welcome to Code Quiz!</h1>")
-      .append("<p>Answer every question before time runs out. The faster you answer, the higher your score!</p>");
+      .append(
+        "<p>Answer every question before time runs out. The faster you answer, the higher your score!</p>"
+      );
     $scoresBox.hide();
     writeStartButtons();
   }
@@ -116,10 +118,12 @@ $(document).ready(function () {
     for (var i = 0; i < currentAnswers.length; i++) {
       var newAnswerCard = $('<div class="card text-center my-2 answer">');
       $answersBox.append(newAnswerCard);
-      var newAnswerCardBody = $(`<div class="card-body"></div>`).on("click", nextQuestion);
+      var newAnswerCardBody = $(`<div class="card-body"></div>`).on(
+        "click",
+        nextQuestion
+      );
       //if the answer at this index is the correct answer, give the card a data attribute
-      if (i === currentCorrect)
-        newAnswerCardBody.attr("data-correct", true);
+      if (i === currentCorrect) newAnswerCardBody.attr("data-correct", true);
       //update the text of the new answer and append it
       newAnswerCardBody.text(currentAnswers[i]);
       newAnswerCard.append(newAnswerCardBody);
@@ -167,7 +171,9 @@ $(document).ready(function () {
       .append(`<h1>Final Score: ${score}</h1>`)
       .append("<p>Enter Your Name</p>")
       .append($('<input type="text" id="nameInput" maxlength="20">'))
-      .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName));
+      .append(
+        $('<input type="submit" id="nameSubmit">').on("click", saveNewName)
+      );
     $buttonBox.empty().show().append(homeButton, clearButton);
     $answersBox.hide();
     $scoresBox.show();
@@ -227,6 +233,24 @@ $(document).ready(function () {
     return sortedArray;
   }
 
+  //function to set scores
+  function setScores(questions) {
+    switch (questions) {
+      case htmlQuestions:
+        localStorage.setItem("htmlScores", JSON.stringify(highScores));
+        break;
+      case cssQuestions:
+        localStorage.setItem("cssScores", JSON.stringify(highScores));
+        break;
+      case jsQuestions:
+        localStorage.setItem("jsScores", JSON.stringify(highScores));
+        break;
+      case jqQuestions:
+        localStorage.setItem("jqScores", JSON.stringify(highScores));
+        break;
+    }
+  }
+
   //function to save scores
   function saveNewName(e) {
     e.preventDefault();
@@ -242,41 +266,15 @@ $(document).ready(function () {
       //hide the inputs fields
       $questionBox.slideUp();
       //use switchboard to save new scores to the appropriate variable
-      switch (questions) {
-        case htmlQuestions:
-          localStorage.setItem("htmlScores", JSON.stringify(highScores));
-          break;
-        case cssQuestions:
-          localStorage.setItem("cssScores", JSON.stringify(highScores));
-          break;
-        case jsQuestions:
-          localStorage.setItem("jsScores", JSON.stringify(highScores));
-          break;
-        case jqQuestions:
-          localStorage.setItem("jqScores", JSON.stringify(highScores));
-          break;
-      }
+      setScores(questions);
     }
   }
 
   //function to clear high scores
   function clearHighScores() {
     highScores = [];
-    switch (questions) {
-      case htmlQuestions:
-        localStorage.setItem("htmlScores", JSON.stringify([]));
-        break;
-      case cssQuestions:
-        localStorage.setItem("cssScores", JSON.stringify([]));
-        break;
-      case jsQuestions:
-        localStorage.setItem("jsScores", JSON.stringify([]));
-        break;
-      case jqQuestions:
-        localStorage.setItem("jqScores", JSON.stringify([]));
-        break;
-    }
-    writeScores()
+    setScores(questions);
+    writeScores();
   }
   //--------------------------------------------------------------------------------
 
@@ -300,7 +298,7 @@ $(document).ready(function () {
     }
   }
   //---------------------------------------------------------------------------------
-  
+
   //SCRAMBLE FUNCTION
   function scramble(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -309,7 +307,7 @@ $(document).ready(function () {
       arr[i] = arr[j];
       arr[j] = temp;
     }
-    return (arr);
+    return arr;
   }
 
   //--------------------------------------------------------------------------------
