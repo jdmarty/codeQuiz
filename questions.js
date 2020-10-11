@@ -97,9 +97,9 @@ export var jsQuestions = [
       'What is the correct JavaScript syntax to change the content of this HTML element?<h2>&lt;p id="par"&gt;This is a paragraph&lt/p&gt',
     answers: [
       'document.getElement("p").innerHTML = "Hello World!"',
-      '#demo.innerHTML = "Hello World!"',
+      '#par.innerHTML = "Hello World!"',
       'document.getElementById("par").innerHTML = "Hello World!"',
-      '$(.par).text("Hello World!")',
+      '$("par").text("Hello World!")',
     ],
     correct: 2,
   },
@@ -123,11 +123,11 @@ export var jsQuestions = [
     correct: 0,
   },
   {
-    question: 'How do you create a function in JavaScript?',
+    question: 'How do you declare a function in JavaScript?',
     answers: [
       'var function = myFunction()',
-      'function: myFunction',
       'function myFunction()',
+      'function: myFunction',
       'myFunction()',
     ],
     correct: 1,
@@ -166,29 +166,32 @@ export var jqQuestions = [
     correct: 0,
   },
   {
-    question: 'Which jQuery method is used to set the display property of a selected element to "none"?',
-    answers: ["hidden()", "display(false)", "show(false)", "hide()"],
+    question:
+      'Which jQuery method is used to set the display property of a selected element to "none"?',
+    answers: [".hidden()", ".display(false)", ".show(false)", ".hide()"],
     correct: 3,
   },
   {
     question: "To add jQuery to your project, you must...",
     answers: [
-      'Purchase a license at jQuery.com',
-      'Refer to a hosted jQuery library',
-      'Do nothing, jQuery is a built in part of most browsers',
-      'Link https://jquery.com/download/ in the head of index.html',
+      "Purchase a license at jQuery.com",
+      "Refer to a hosted jQuery library",
+      "Do nothing, jQuery is a built in part of most browsers",
+      "Link https://jquery.com/download/ in the head of index.html",
     ],
     correct: 1,
   },
   {
-    question: 'Which jQuery method returns the selected elements direct parent element?',
-    answers: [
-      'ancestor()', 
-      'previous()', 
-      'parent()', 
-      'father()'
-    ],
+    question:
+      "Which jQuery method returns the direct parent element of the selected element?",
+    answers: [".ancestor()", ".previous()", ".parent()", ".father()"],
     correct: 2,
+  },
+  {
+    question:
+      "Which jQuery method is used to perform an asynchronous HTTP request?",
+    answers: [".http()", ".request()", ".show()", ".ajax()"],
+    correct: 3,
   },
 ];
 
