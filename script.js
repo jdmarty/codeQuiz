@@ -94,7 +94,7 @@ $(document).ready(function () {
 
   //select quiz type
   function selectQuizType(questionsArray, scores) {
-    questions = questionsArray;
+    questions = scramble(questionsArray);
     highScores = JSON.parse(localStorage.getItem(scores));
     //set timer based on how many questions are in the quiz
     timer = questions.length * 12;
@@ -103,23 +103,25 @@ $(document).ready(function () {
 
   //function to update the current question
   function loadQuestion(questions, qNumber) {
-    //identify the current question
-    var currentQuestion = questions[qNumber];
+    //identify the current question and answers
+    var currentQuestion = questions[qNumber].question;
+    var currentAnswers = questions[qNumber].answers;
+    var currentCorrect = questions[qNumber].correct;
     //hide the buttons, show the answers, and empty them out
     $buttonBox.hide();
     $answersBox.show().empty();
     //write the question
-    $questionBox.html(`<h2>${currentQuestion.question}</h2>`);
+    $questionBox.html(`<h2>${currentQuestion}</h2>`);
     //write the answers
-    for (var i = 0; i < currentQuestion.answers.length; i++) {
+    for (var i = 0; i < currentAnswers.length; i++) {
       var newAnswerCard = $('<div class="card text-center my-2 answer">');
       $answersBox.append(newAnswerCard);
       var newAnswerCardBody = $(`<div class="card-body"></div>`).on("click", nextQuestion);
       //if the answer at this index is the correct answer, give the card a data attribute
-      if (i === currentQuestion.correct)
+      if (i === currentCorrect)
         newAnswerCardBody.attr("data-correct", true);
       //update the text of the new answer and append it
-      newAnswerCardBody.text(currentQuestion.answers[i]);
+      newAnswerCardBody.text(currentAnswers[i]);
       newAnswerCard.append(newAnswerCardBody);
     }
   }
@@ -164,7 +166,7 @@ $(document).ready(function () {
       .empty()
       .append(`<h1>Final Score: ${score}</h1>`)
       .append("<p>Enter Your Name</p>")
-      .append($('<input type="text" id="nameInput">'))
+      .append($('<input type="text" id="nameInput" maxlength="20">'))
       .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName));
     $buttonBox.empty().show().append(homeButton, clearButton);
     $answersBox.hide();
@@ -297,7 +299,18 @@ $(document).ready(function () {
       $progressBar.append(newProgress);
     }
   }
-  //-----------------------------------------------------------------------------
+  //---------------------------------------------------------------------------------
+  
+  //SCRAMBLE FUNCTION
+  function scramble(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * i);
+      const temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+    return (arr);
+  }
 
   //--------------------------------------------------------------------------------
 });

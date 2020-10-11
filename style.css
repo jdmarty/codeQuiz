@@ -92,5 +92,7 @@ ol:first-child {
 .left {
     position: absolute;
     left: 2%;
+    max-width: 40%;
+    overflow: hidden;
 }
 
