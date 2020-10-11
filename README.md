@@ -1,8 +1,8 @@
 # Code Quiz
 
 ## Links
- - Deployed
- - Repository
+ - Deployed []
+ - Repository [https://github.com/jdmarty/codeQuiz] (https://github.com/jdmarty/codeQuiz)
 
 
 
