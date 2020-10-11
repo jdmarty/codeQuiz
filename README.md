@@ -4,9 +4,9 @@
  - Deployed [https://jdmarty.github.io/codeQuiz/](https://jdmarty.github.io/codeQuiz/)
  - Repository [https://github.com/jdmarty/codeQuiz](https://github.com/jdmarty/codeQuiz)
 
+![Code Quiz Demo Gif](https://github.com/jdmarty/codeQuiz/blob/main/Assets/finished.gif)
 
-
- ## How to use
+ ## How to take a quiz
  1. Select the type of quiz you want to take from the buttons on the home screen. High score boards
  are specific to each quiz type. A timer (12 seconds per question) will start as soon as you click the start button
  2. Select the correct answer from the options presented below.
@@ -26,18 +26,30 @@
 1. Create and export a new variable bound to an array.
 2. Fill that array with questions using the format described above.
 3. Add your named variable to the import statement at the top of script.js
+
+![Import Statement](https://github.com/jdmarty/codeQuiz/blob/main/Assets/importStatement.PNG)
+
 4. Add a new start button by adding an object to the startButtons array in script.js using the following format:
     - id: String containing the name to be used when identifying the quiz later
     - text: String containing text to display on the button
+
+![Start Buttons Array](https://github.com/jdmarty/codeQuiz/blob/main/Assets/startButtons.PNG)
+
 5. Add your quiz to the loadQuiz switchboard using the following format:
     - case: string matching id value of the button created in the previous step
     - selectQuizType first argument: variable containing appropriate questions array imported from questions.js
     - selectQuizType second argument: string defining the name that you want to use to call the high scores board for this quiz.
+
+![Load Quiz Switchboard](https://github.com/jdmarty/codeQuiz/blob/main/Assets/loaderSwitchboard.PNG)
+
 6. Add your scoreboard to the setScores switchboard using the following format:
     - case: variable containing appropriate questions array imported from questions.js
     - localStorage.setItem first argument: string matching the name set in the previous step to define the scoreboard for this quiz
     - localStorage.setItem second argument: JSON.stringify(highScores)
---------------------------------
+
+![Scores Switchboard](https://github.com/jdmarty/codeQuiz/blob/main/Assets/scoresSwitchboard.PNG)
+
+------------------------------------------------------------------------------------------
 
 # 04 Web APIs: Code Quiz
 
