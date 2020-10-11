@@ -18,9 +18,9 @@
 
  ## How to update/add questions
  Questions for each quiz are stored in their own array in the questions.js file. Add questions to a quiz by creating an object with the following format and adding it to the appropriate array:
-    - question: String containing a the question prompt
-    - answers: An array of strings containing possible answers to the question
-    - correct: The index of the correct answer 
+- question: String containing a the question prompt
+- answers: An array of strings containing possible answers to the question
+- correct: The index of the correct answer 
 
 ## How to add quizzes
 1. Create and export a new variable bound to an array.
