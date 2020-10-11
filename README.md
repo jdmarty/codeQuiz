@@ -35,14 +35,14 @@
 
 ![Start Buttons Array](https://github.com/jdmarty/codeQuiz/blob/main/Assets/startButtons.PNG)
 
-5. Add your quiz to the loadQuiz switchboard using the following format:
+5. Add your quiz to the switch statement in the loadQuiz function of script.js using the following format:
     - case: string matching id value of the button created in the previous step
     - selectQuizType first argument: variable containing appropriate questions array imported from questions.js
     - selectQuizType second argument: string defining the name that you want to use to call the high scores board for this quiz.
 
 ![Load Quiz Switchboard](https://github.com/jdmarty/codeQuiz/blob/main/Assets/loaderSwitchboard.PNG)
 
-6. Add your scoreboard to the setScores switchboard using the following format:
+6. Add your scoreboard to the switch statement in the setScores function of script.js using the following format:
     - case: variable containing appropriate questions array imported from questions.js
     - localStorage.setItem first argument: string matching the name set in the previous step to define the scoreboard for this quiz
     - localStorage.setItem second argument: JSON.stringify(highScores)
