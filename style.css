@@ -101,14 +101,21 @@ ol:first-child {
 
 /* Animations */
 .shake {
-  animation: shake 0.3s;
-  color: #d9534f !important;
+    animation: shake 0.3s;
+    background-color: #d9534f !important;
+}
+
+#timer.shake {
+    animation: shake 0.3s;
+    color: #d9534f !important;
+    background-color: inherit !important;
 }
 
 .bounce {
     -webkit-animation: bounce 0.3s;
     animation: bounce 0.3s;
-    color: #5cb85c !important;
+    /* color: #5cb85c !important; */
+    background-color: #5cb85c !important;
 }
 
 @keyframes shake {
