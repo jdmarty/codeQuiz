@@ -1,5 +1,5 @@
 //import the questions list
-import { htmlQuestions, cssQuestions, jsQuestions, jqQuestions } from './questions.js';
+import { htmlQuestions, cssQuestions, jsQuestions, jqQuestions, allQuestions } from './questions.js';
 
 $(document).ready(function () {
   //-------------------------------------------------------------------------
@@ -16,6 +16,7 @@ $(document).ready(function () {
     { id: "cssStart", text: "CSS" },
     { id: "jsStart", text: "JavaScript" },
     { id: "jqStart", text: "jQuery" },
+    { id: "allStart", text: "Everything" }
   ];
   var interval;
 
@@ -86,6 +87,9 @@ $(document).ready(function () {
         break;
       case "jqStart":
         selectQuizType(jqQuestions, "jqScores");
+        break;
+      case "allStart":
+        selectQuizType(allQuestions, "allScores");
         break;
     }
 
@@ -248,6 +252,8 @@ $(document).ready(function () {
       case jqQuestions:
         localStorage.setItem("jqScores", JSON.stringify(highScores));
         break;
+      case allQuestions:
+        localStorage.setItem("allScores", JSON.stringify(highScores));
     }
   }
 

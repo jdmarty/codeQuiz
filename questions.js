@@ -189,4 +189,4 @@ export var jqQuestions = [
   },
 ];
 
-
+export var allQuestions = [].concat(htmlQuestions, cssQuestions, jsQuestions, jqQuestions)
