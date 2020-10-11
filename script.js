@@ -138,12 +138,22 @@ $(document).ready(function () {
   //function to load the next question
   function nextQuestion(e) {
     var isCorrect = e.target.getAttribute("data-correct");
-    //take away time if they choose the wrong answer
+    //take away time if they choose the wrong answer and shake elements
     if (!isCorrect) {
       timer -= 12;
+      $questionBox.addClass('shake');
       $timer.addClass('shake');
-      setTimeout(() => {$timer.removeClass('shake')}, 400)
+      setTimeout(() => {
+        $questionBox.removeClass('shake');
+        $timer.removeClass('shake');
+      }, 300)
+    } else {
+      $questionBox.addClass('bounce');
+      setTimeout(() => {
+        $questionBox.removeClass('bounce');
+      }, 300);
     }
+    //update progress and move to next question
     updateProgress(isCorrect);
     qNumber++;
     //if you have reached the end of the questions, end the quiz
