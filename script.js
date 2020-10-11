@@ -28,6 +28,7 @@ $(document).ready(function () {
   var $scoresList = $("#scoresList");
   var $timer = $("#timer");
   var $progressBar = $("#progressBar");
+  var sound = document.createElement("audio");
 
   //START QUIZ-----------------------------------------------------------------
   //start the app
@@ -138,7 +139,11 @@ $(document).ready(function () {
   function nextQuestion(e) {
     var isCorrect = e.target.getAttribute("data-correct");
     //take away time if they choose the wrong answer
-    if (!isCorrect) timer -= 12;
+    if (!isCorrect) {
+      timer -= 12;
+      $timer.addClass('shake');
+      setTimeout(() => {$timer.removeClass('shake')}, 400)
+    }
     updateProgress(isCorrect);
     qNumber++;
     //if you have reached the end of the questions, end the quiz
@@ -288,6 +293,7 @@ $(document).ready(function () {
   //function to update progress bar
   function updateProgress(correct) {
     if (correct) {
+      //create and append animated progress bar
       var newProgress = $(
         `<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="${
           100 / questions.length
@@ -295,6 +301,7 @@ $(document).ready(function () {
       ).animate({ width: `${100 / questions.length}%` }, 100);
       $progressBar.append(newProgress);
     } else {
+      //create and append animated progress bar
       var newProgress = $(
         `<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="${
           100 / questions.length

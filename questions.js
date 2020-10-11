@@ -3,18 +3,18 @@
 //HTML Questions
 export var htmlQuestions = [
   {
-    question: "What is the HTML element to use to insert a line break?",
+    question: "What is the HTML element to use when you want to insert a line break?",
     answers: ["<span>", "<br>", "<break>", "<lb>"],
     correct: 1,
   },
   {
     question:
-      "Which of the following elements does NOT display inline by default?",
+      "Which of the following HTML elements does NOT display inline by default?",
     answers: ["<span>", "<img>", "<div>", "<input>"],
     correct: 2,
   },
   {
-    question: 'Which of these is correct way to insert an image?',
+    question: 'Which of these is the correct way to insert an image into an HTML document?',
     answers: [
       '<img src="image.jpg" alt="MyImage">',
       '<image src="image.jpg" alt="MyImage">',
@@ -33,7 +33,7 @@ export var htmlQuestions = [
     correct: 3,
   },
   {
-    question: 'Which element is used to specify a header for a document or section?',
+    question: 'Which HTML element is used to specify a header for a document or section?',
     answers: [
       '<lead>', 
       '<head>', 
@@ -45,7 +45,7 @@ export var htmlQuestions = [
 
 export var cssQuestions = [
   {
-    question: 'Which is the correct CSS syntax?',
+    question: 'Which is an example of correct CSS syntax?',
     answers: [
       'body {color=black}',
       '{body:color black}',
@@ -55,7 +55,7 @@ export var cssQuestions = [
     correct: 2,
   },
   {
-    question: 'What is correct way to add a background color to all \&lt;h1\&gt; elements?',
+    question: 'What is correct way to use CSS to add a background color to all \&lt;h1\&gt; elements?',
     answers: [
       'all.h1 {background-color:#FFFFFF}',
       'h1 {background-color:#FFFFFF}',
@@ -70,7 +70,7 @@ export var cssQuestions = [
     correct: 3,
   },
   {
-    question: 'How do you select all p elements inside a div?',
+    question: 'Which CSS selector do you use to select all p elements inside a div?',
     answers: [
       'div + p', 
       'div p', 
@@ -80,7 +80,7 @@ export var cssQuestions = [
   },
   {
     question:
-      'How do you display a border like this:<h3>Top: 10px</h3><h3>Bottom: 5px</h3><h3>Left: 20px</h3><h3>Right: 1px</h3>',
+      'How do you use CSS to display a border like this:<h3>Top: 10px</h3><h3>Bottom: 5px</h3><h3>Left: 20px</h3><h3>Right: 1px</h3>',
     answers: [
       'border-width: 10px 1px 5px 20px',
       'border-width: 1px 20px 5px 10px',
@@ -113,7 +113,7 @@ export var jsQuestions = [
     correct: 2,
   },
   {
-    question: 'How do you round the number 7.25, to the nearest integer?',
+    question: 'How do you use JavaScript to round the number 7.25 to the nearest integer?',
     answers: [
       'Math.round(7.25)',
       'round(7.25)',
@@ -133,7 +133,7 @@ export var jsQuestions = [
     correct: 1,
   },
   {
-    question: 'Which of these data types is inherently iterable?',
+    question: 'Which of these JavaScript data types is inherently iterable?',
     answers: [
       'object', 
       'number', 
@@ -146,7 +146,7 @@ export var jsQuestions = [
 export var jqQuestions = [
   {
     question:
-      "What is the correct jQuery code to set the background color of all p elements to blue?",
+      "What is the correct jQuery code to use to set the background color of all p elements to blue?",
     answers: [
       '$("p").background("blue");',
       '$("p").css("background-color","blue");',
