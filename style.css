@@ -1,8 +1,26 @@
 * {
     box-sizing: border-box;
 }
-/* Jumbotron */
+/* Timer */
+#timer {
+    font-size: 1.4em;
+    color: white;
+    display: none;
+}
 
+/* Jumbotron */
+#questionBox {
+    background-color: #6441A5;
+    color: white;
+}
+
+#questionBox h1 {
+    font-size: 4em
+}
+
+#questionBox p {
+    font-size: 1.5em;
+}
 
 /* Answers */
 #answersBox {
@@ -15,15 +33,43 @@
     font-size: 2em;
     width: 80%;
     margin: 0 auto;
-}
-
-.answer:hover {
-    background-color: black;
+    background-color: #6441A5;
     color: white;
 }
 
+.answer:hover {
+    box-shadow: 4px 6px 5px #888888; 
+}
+
+/* Buttons */
+#buttonBox {
+    color: #6441A5;
+}
+
+button {
+    background-color: #6441A5;
+    color: white;
+    font-size: 2em;
+    font-style: inherit;  
+}
+
+button:hover {
+    box-shadow: 4px 6px 5px #888888; 
+}
+
 /* Scores */
-li {
+[type="submit"] {
+    background-color: white;
+    color: #6441A5;
+    margin-left: 2%;
+    font-size: 1.5em;
+}
+
+input {
+    font-size: 1.5em;
+}
+
+ol li {
     font-size: 2em;
     text-align: center;
     width: 80%;

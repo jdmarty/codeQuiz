@@ -1,3 +1,4 @@
+//import the questions list
 import { htmlQuestions, cssQuestions, jsQuestions, jqQuestions } from './questions.js';
 
 $(document).ready(function () {
@@ -7,7 +8,7 @@ $(document).ready(function () {
   //global variables
   var questions = null;
   var qNumber = 0;
-  var timer = 60;
+  var timer;
   var score = 0;
   var highScores = [];
   var startButtons = [
@@ -25,7 +26,7 @@ $(document).ready(function () {
   var $scoresBox = $("#scoresBox");
   var $scoresList = $("#scoresList");
   var $timer = $("#timer");
-  var $progressBar = $('#progressBar')
+  var $progressBar = $("#progressBar");
 
   //START QUIZ-----------------------------------------------------------------
   //start the app
@@ -34,36 +35,30 @@ $(document).ready(function () {
 
   //function to set up the welcome screen and reset state
   function initialize() {
-    timer = 60;
     qNumber = 0;
-    $timer.text("Timer");
-    setStartDOM()
+    setStartDOM();
   }
 
   //function to set the DOM to the startQuiz state
   function setStartDOM() {
-      $progressBar.empty();
-      $questionBox
-        .empty()
-        .show()
-        .append('<h1>Welcome to Code Quiz!</h1>')
-        .append('<p>Answer every question before time runs out. The faster you answer, the higher your score!</p>')
-      $buttonBox
-        .empty()
-        .show()
-        .append('<h2>Pick Your Topic</h2>');
-      $scoresBox
-        .hide();
-      writeStartButtons()
+    $timer.hide();
+    $progressBar.empty();
+    $questionBox
+      .empty()
+      .show()
+      .append("<h1>Welcome to Code Quiz!</h1>")
+      .append("<p>Answer every question before time runs out. The faster you answer, the higher your score!</p>");
+    $scoresBox.hide();
+    writeStartButtons();
   }
-
 
   //function to write the start buttons row
   function writeStartButtons() {
+    $buttonBox.empty().show().append("<h2>Pick Your Topic</h2>");
     for (var button of startButtons) {
       let newStartButton = $("<button>")
         .attr("id", button.id)
-        .attr("class", "btn btn-primary btn-lg mx-1")
+        .attr("class", "mx-1 rounded p-2")
         .text(button.text)
         .on("click", loadQuiz);
       $buttonBox.append(newStartButton);
@@ -79,29 +74,31 @@ $(document).ready(function () {
     //use switchboard to load the appropriate questions and highscore list
     switch (quizType) {
       case "htmlStart":
-        selectQuizType("HTML", htmlQuestions, "htmlScores");
+        selectQuizType(htmlQuestions, "htmlScores");
         break;
       case "cssStart":
-        selectQuizType('CSS', cssQuestions, 'cssScores')
+        selectQuizType(cssQuestions, "cssScores");
         break;
       case "jsStart":
-        selectQuizType("JavaScript", jsQuestions, "jsScores");
+        selectQuizType(jsQuestions, "jsScores");
         break;
       case "jqStart":
-        selectQuizType("jQuery", jqQuestions, "jqScores");
+        selectQuizType(jqQuestions, "jqScores");
         break;
-    }
-
-    //select quiz type
-    function selectQuizType(typeString, questionsArray, scores) {
-      questions = questionsArray;
-      highScores = JSON.parse(localStorage.getItem(scores))
-      if (!highScores) highScores = [];
     }
 
     //load the first question and start timer
     loadQuestion(questions, qNumber);
     startTimer();
+  }
+
+  //select quiz type
+  function selectQuizType(questionsArray, scores) {
+    questions = questionsArray;
+    highScores = JSON.parse(localStorage.getItem(scores));
+    //set timer based on how many questions are in the quiz
+    timer = questions.length * 12;
+    if (!highScores) highScores = [];
   }
 
   //function to update the current question
@@ -112,17 +109,16 @@ $(document).ready(function () {
     $buttonBox.hide();
     $answersBox.show().empty();
     //write the question
-    $questionBox.html(`<h1>${currentQuestion.question}</h1>`);
+    $questionBox.html(`<h2>${currentQuestion.question}</h2>`);
     //write the answers
     for (var i = 0; i < currentQuestion.answers.length; i++) {
-      //write a new answers card
       var newAnswerCard = $('<div class="card text-center my-2 answer">');
       $answersBox.append(newAnswerCard);
-      //write a new card body with an event listener
-      var newAnswerCardBody = $(`<div class="card-body bg-primary"></div>`);
-      newAnswerCardBody.on("click", nextQuestion);
+      var newAnswerCardBody = $(`<div class="card-body"></div>`).on("click", nextQuestion);
       //if the answer at this index is the correct answer, give the card a data attribute
-      if (i === currentQuestion.correct) newAnswerCardBody.attr("data-correct", true);
+      if (i === currentQuestion.correct)
+        newAnswerCardBody.attr("data-correct", true);
+      //update the text of the new answer and append it
       newAnswerCardBody.text(currentQuestion.answers[i]);
       newAnswerCard.append(newAnswerCardBody);
     }
@@ -132,12 +128,11 @@ $(document).ready(function () {
   function nextQuestion(e) {
     var isCorrect = e.target.getAttribute("data-correct");
     //take away time if they choose the wrong answer
-    if (!isCorrect) timer -= 10;
-    updateProgress(isCorrect)
-    //move to the next question
+    if (!isCorrect) timer -= 12;
+    updateProgress(isCorrect);
     qNumber++;
     //if you have reached the end of the questions, end the quiz
-    (qNumber < questions.length) ? loadQuestion(questions, qNumber) : endQuiz()
+    qNumber < questions.length ? loadQuestion(questions, qNumber) : endQuiz();
   }
 
   //END QUiZ--------------------------------------------------------------------
@@ -155,26 +150,22 @@ $(document).ready(function () {
 
   //function set the DOM to the end quiz state
   function setEndDOM() {
-      //new buttons
-      var homeButton = $("<button>")
-        .attr("class", "btn btn-primary btn-lg mx-1")
-        .text("Home")
-        .on("click", initialize);
-      //set DOM elements
-      $questionBox
-        .empty()
-        .append(`<h1>Final Score: ${score}</h1>`)
-        .append('<p>Enter Your Name</p>')
-        .append($('<input type="text" id="nameInput">'))
-        .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName))
-      $buttonBox
-        .empty()
-        .show()
-        .append(homeButton);
-      $answersBox.hide();
-      $scoresBox.show();
-      $scoresList.empty();
-      writeScores();
+    //new buttons
+    var homeButton = $("<button>")
+      .attr("class", "mx-1 rounded p-2")
+      .text("Home")
+      .on("click", initialize);
+    //set DOM elements
+    $questionBox
+      .empty()
+      .append(`<h1>Final Score: ${score}</h1>`)
+      .append("<p>Enter Your Name</p>")
+      .append($('<input type="text" id="nameInput">'))
+      .append($('<input type="submit" id="nameSubmit">').on("click", saveNewName));
+    $buttonBox.empty().show().append(homeButton);
+    $answersBox.hide();
+    $scoresBox.show();
+    writeScores();
   }
 
   //function to write the scores list
@@ -184,21 +175,22 @@ $(document).ready(function () {
     //sort the current scores
     highScores = sortScores(highScores);
     //loop through the sorted array and add them to scores list
-    for (var i = 0; i <highScores.length; i++) {
-        var newScore = $('<li>');
-        newScore.append(`<span class="left">${highScores[i].name}</span>`);
-        newScore.append(`<span>${highScores[i].score}</span>`);
-        if (i === 0) newScore.append('<span class="right">🥇</span>');
-        if (i === 1) newScore.append('<span class="right">🥈</span>');
-        if (i === 2) newScore.append('<span class="right">🥉</span>');
-        $scoresList.append(newScore);
-      }
+    for (var i = 0; i < highScores.length; i++) {
+      var newScore = $("<li>");
+      newScore.append(`<span class="left">${highScores[i].name}</span>`);
+      newScore.append(`<span>${highScores[i].score}</span>`);
+      if (i === 0) newScore.append('<span class="right">🥇</span>');
+      if (i === 1) newScore.append('<span class="right">🥈</span>');
+      if (i === 2) newScore.append('<span class="right">🥉</span>');
+      $scoresList.append(newScore);
     }
+  }
   //----------------------------------------------------------------------------
 
   //TIMER FUNCTIONS--------------------------------------------------------------
   //function to start the timer
   function startTimer() {
+    $timer.show().text("Timer: " + timer.toFixed(1));
     interval = setInterval(updateTimer, 100);
   }
 
@@ -214,6 +206,7 @@ $(document).ready(function () {
     timer -= 0.1;
     $timer.text("Timer: " + timer.toFixed(1));
   }
+
   //--------------------------------------------------------------------------------
 
   //SCORE FUNCTIONS----------------------------------------------------------------
@@ -230,49 +223,56 @@ $(document).ready(function () {
 
   //function to save scores
   function saveNewName(e) {
-    e.preventDefault()
-    let currentNameInput = $('#nameInput').val()
+    e.preventDefault();
+    let currentNameInput = $("#nameInput").val();
     //check if there is anything in the input field
     if (currentNameInput) {
-        //if there is, push a new score to the array
-        highScores.push({ name: currentNameInput, score: score})
-        //re-write the scores list
-        writeScores()
-        //hide the inputs fields
-        $questionBox.slideUp()
-        //use switchboard to save new scores to the appropriate variable
-        switch (questions) {
-            case htmlQuestions:
-                localStorage.setItem('htmlScores', JSON.stringify(highScores))
-                break;
-            case cssQuestions:
-                localStorage.setItem("cssScores", JSON.stringify(highScores));
-                break;
-            case jsQuestions:
-                localStorage.setItem("jsScores", JSON.stringify(highScores));
-                break;
-            case jqQuestions:
-                localStorage.setItem("jqScores", JSON.stringify(highScores));
-                break;
-        }
+      //if there is, push a new score to the array
+      highScores.push({ name: currentNameInput, score: score });
+      //if high scores is longer than 10, remove the last socre
+      if (highScores.length > 10) highScores.pop();
+      //re-write the scores list
+      writeScores();
+      //hide the inputs fields
+      $questionBox.slideUp();
+      //use switchboard to save new scores to the appropriate variable
+      switch (questions) {
+        case htmlQuestions:
+          localStorage.setItem("htmlScores", JSON.stringify(highScores));
+          break;
+        case cssQuestions:
+          localStorage.setItem("cssScores", JSON.stringify(highScores));
+          break;
+        case jsQuestions:
+          localStorage.setItem("jsScores", JSON.stringify(highScores));
+          break;
+        case jqQuestions:
+          localStorage.setItem("jqScores", JSON.stringify(highScores));
+          break;
+      }
     }
-
   }
   //--------------------------------------------------------------------------------
 
   //PROGRESS BAR-------------------------------------------------------------------
   //function to update progress bar
-    function updateProgress(correct) {
-        if (correct) {
-            var newProgress = $('<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>')
-              .animate({width: `${100/questions.length}%`}, 100);
-            $progressBar.append(newProgress);
-        } else {
-            var newProgress = $('<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>')
-              .animate({width: `${100/questions.length}%`}, 100);
-            $progressBar.append(newProgress);
-        }
+  function updateProgress(correct) {
+    if (correct) {
+      var newProgress = $(
+        `<div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="${
+          100 / questions.length
+        }" aria-valuemin="0" aria-valuemax="100"></div>`
+      ).animate({ width: `${100 / questions.length}%` }, 100);
+      $progressBar.append(newProgress);
+    } else {
+      var newProgress = $(
+        `<div class="progress-bar bg-danger" role="progressbar" style="width: 0%" aria-valuenow="${
+          100 / questions.length
+        }" aria-valuemin="0" aria-valuemax="100"></div>`
+      ).animate({ width: `${100 / questions.length}%` }, 100);
+      $progressBar.append(newProgress);
     }
+  }
   //-----------------------------------------------------------------------------
 
   //--------------------------------------------------------------------------------
