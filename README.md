@@ -2,7 +2,7 @@
 
 ## Links
  - Deployed []
- - Repository [https://github.com/jdmarty/codeQuiz] (https://github.com/jdmarty/codeQuiz)
+ - Repository [https://github.com/jdmarty/codeQuiz](https://github.com/jdmarty/codeQuiz)
 
 
 

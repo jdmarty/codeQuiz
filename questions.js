@@ -148,9 +148,9 @@ export var jqQuestions = [
     question:
       "What is the correct jQuery code to set the background color of all p elements to blue?",
     answers: [
-      '$("p").style("background-color","blue");',
+      '$("p").background("blue");',
       '$("p").css("background-color","blue");',
-      '$("p").background("blue")',
+      '$("p").style("background-color","blue");',
       '$("#p").css("background-color","blue");',
     ],
     correct: 1,
@@ -186,12 +186,6 @@ export var jqQuestions = [
       "Which jQuery method returns the direct parent element of the selected element?",
     answers: [".ancestor()", ".previous()", ".parent()", ".father()"],
     correct: 2,
-  },
-  {
-    question:
-      "Which jQuery method is used to perform an asynchronous HTTP request?",
-    answers: [".http()", ".request()", ".show()", ".ajax()"],
-    correct: 3,
   },
 ];
 
