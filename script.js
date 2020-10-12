@@ -28,7 +28,6 @@ $(document).ready(function () {
   var $scoresList = $("#scoresList");
   var $timer = $("#timer");
   var $progressBar = $("#progressBar");
-  var sound = document.createElement("audio");
 
   //START QUIZ-----------------------------------------------------------------
   //start the app
@@ -123,10 +122,7 @@ $(document).ready(function () {
     for (var i = 0; i < currentAnswers.length; i++) {
       var newAnswerCard = $('<div class="card text-center my-2 answer">');
       $answersBox.append(newAnswerCard);
-      var newAnswerCardBody = $(`<div class="card-body"></div>`).on(
-        "click",
-        nextQuestion
-      );
+      var newAnswerCardBody = $(`<div class="card-body"></div>`).on("click", nextQuestion);
       //if the answer at this index is the correct answer, give the card a data attribute
       if (i === currentCorrect) newAnswerCardBody.attr("data-correct", true);
       //update the text of the new answer and append it
@@ -142,18 +138,19 @@ $(document).ready(function () {
     if (!isCorrect) {
       timer -= 12;
       $questionBox.addClass('shake');
-      $timer.addClass('shake');
+      $timer.addClass('shakeTime');
       setTimeout(() => {
         $questionBox.removeClass('shake');
-        $timer.removeClass('shake');
+        $timer.removeClass('shakeTime');
       }, 300)
+    //otherwise, bounce the question box
     } else {
       $questionBox.addClass('bounce');
       setTimeout(() => {
         $questionBox.removeClass('bounce');
       }, 300);
     }
-    //update progress and move to next question
+    //update progress bar
     updateProgress(isCorrect);
     qNumber++;
     //if you have reached the end of the questions, end the quiz
@@ -323,6 +320,7 @@ $(document).ready(function () {
   //---------------------------------------------------------------------------------
 
   //SCRAMBLE FUNCTION
+  //function to have questions appear in random order
   function scramble(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * i);
@@ -332,6 +330,7 @@ $(document).ready(function () {
     }
     return arr;
   }
+  //--------------------------------------------------------------------------------
 
   //--------------------------------------------------------------------------------
 });

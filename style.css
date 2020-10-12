@@ -105,10 +105,9 @@ ol:first-child {
     background-color: #d9534f !important;
 }
 
-#timer.shake {
+.shakeTime {
     animation: shake 0.3s;
     color: #d9534f !important;
-    background-color: inherit !important;
 }
 
 .bounce {
