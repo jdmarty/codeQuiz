@@ -23,7 +23,7 @@
 - correct: The index of the correct answer 
 
 ## How to add quizzes
-1. Create and export a new variable bound to an array.
+1. Create and export a new variable bound to an array in questions.js
 2. Fill that array with questions using the format described above.
 3. Add your named variable to the import statement at the top of script.js
 
